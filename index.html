@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - QR Scanner Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* QR Scanner Pro Color Palette */
+            --accent-cyan: #00E5FF;
+            --accent-cyan-dark: #00BCD4;
+            --dark-bg: #0D1619;
+            --dark-surface: #182528;
+            --dark-surface-variant: #21383D;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0BEC5;
+            --text-tertiary: #607D8B;
+            --accent-green: #00E676;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(0, 229, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated scanning line background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--accent-cyan) 30%, 
+                var(--accent-green) 50%, 
+                var(--accent-cyan) 70%, 
+                transparent 100%);
+            animation: scanLine 3s linear infinite;
+            z-index: 1000;
+            opacity: 0.8;
+        }
+
+        @keyframes scanLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* QR Code pattern background */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--dark-surface), var(--dark-surface-variant));
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            position: relative;
+            transform: rotate(-3deg);
+            box-shadow: 
+                0 20px 60px rgba(0, 229, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 2px rgba(0, 229, 255, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(-3deg) translateY(0px); }
+            50% { transform: rotate(-3deg) translateY(-10px); }
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green), var(--accent-cyan));
+            border-radius: 34px;
+            z-index: -1;
+            opacity: 0;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.6; }
+        }
+
+        /* QR scan animation */
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            left: 20%;
+            animation: scan 2s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        @keyframes scan {
+            0%, 100% { 
+                top: 25%; 
+                opacity: 0;
+            }
+            50% { 
+                top: 70%; 
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, 
+                var(--text-primary) 0%,
+                var(--accent-cyan) 50%,
+                var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 32px;
+        }
+
+        .last-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 28px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .last-updated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .last-updated-icon {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent-cyan);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        /* Intro Card */
+        .intro-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--accent-cyan),
+                var(--accent-green),
+                var(--accent-cyan),
+                transparent);
+        }
+
+        .intro-card p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-card strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: rgba(0, 229, 255, 0.08);
+            border-left: 3px solid var(--accent-cyan);
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+
+        /* Policy Sections */
+        .policy-section {
+            margin-bottom: 24px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .policy-section:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            transform: translateX(4px);
+            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.1);
+        }
+
+        details {
+            width: 100%;
+        }
+
+        summary {
+            padding: 32px;
+            cursor: pointer;
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-green));
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::before {
+            transform: scaleY(1);
+        }
+
+        .summary-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(0, 229, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        details[open] .summary-icon {
+            background: var(--accent-cyan);
+            color: var(--dark-bg);
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            padding: 0 32px 32px 32px;
+            color: var(--text-secondary);
+            animation: slideDown 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h3 {
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 28px 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h3:first-child {
+            margin-top: 0;
+        }
+
+        h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 2px;
+        }
+
+        ul {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        li {
+            padding-left: 32px;
+            margin-bottom: 16px;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        a:hover::after {
+            width: 100%;
+        }
+
+        a:hover {
+            color: var(--text-primary);
+        }
+
+        em {
+            color: var(--text-tertiary);
+            font-style: italic;
+            display: block;
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border-left: 2px solid var(--dark-surface-variant);
+        }
+
+        /* Contact Box */
+        .contact-box {
+            margin: 80px 0;
+            padding: 60px;
+            background: linear-gradient(135deg, 
+                rgba(0, 229, 255, 0.1) 0%,
+                rgba(0, 230, 118, 0.08) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .contact-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-box h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2rem;
+            margin: 0 0 16px 0;
+            position: relative;
+        }
+
+        .contact-box h3::before {
+            display: none;
+        }
+
+        .contact-box p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+            color: var(--dark-bg);
+            text-decoration: none;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 40px rgba(0, 229, 255, 0.4);
+        }
+
+        .contact-btn::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 229, 255, 0.6);
+        }
+
+        .contact-btn:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 40px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+            border-top: 1px solid var(--dark-surface-variant);
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        .footer-brand {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .logo-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 48px;
+            }
+
+            .intro-card,
+            .contact-box {
+                padding: 32px 24px;
+            }
+
+            summary {
+                padding: 24px;
+                font-size: 1.1rem;
+            }
+
+            .section-content {
+                padding: 0 24px 24px 24px;
+            }
+
+            .contact-box h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 80px 0 60px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .logo-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection color */
+        ::selection {
+            background: var(--accent-cyan);
+            color: var(--dark-bg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon">🛡️</div>
+            </div>
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">QR Scanner Pro</p>
+            <div class="last-updated">
+                <span class="last-updated-icon"></span>
+                <span>Last Updated: <strong>January 28, 2025</strong></span>
+            </div>
+        </header>
+
+        <div class="intro-card">
+            <p>As <strong>Bulkar Tech</strong>, we deeply respect the privacy of every user of the <strong>QR Scanner Pro</strong> application. QR Scanner Pro is a professional mobile application developed to scan QR codes and barcodes quickly, securely, and efficiently. This privacy policy explains what data the application collects, how it is used, and how it is protected.</p>
+            
+            <div class="highlight-box">
+                <p style="margin: 0;"><strong>Important:</strong> QR Scanner Pro processes all scanned data locally on your device. Your scanned codes and history are never uploaded to our servers.</p>
+            </div>
+        </div>
+
+        <div class="policy-section">
+            <details open>
+                <summary>
+                    1. Information We Collect
+                    <div class="summary-icon">▼</div>
+                </summary>
+                <div class="section-content">
+                    <p>We design our applications to collect the minimum amount of data possible. In general, the data we collect includes:</p>
+                    
+                    <h3>1.1. Automatically Collected Data</h3>
+                    <ul>
+                        <li><strong>Device Information:</strong> Device model, operating system version, language preferences, and unique device identifiers (such as Advertising ID).</li>
+                        <li><strong>Usage Data:</strong> In-app interactions, session durations, and crash reports. This data is used to improve the application and fix bugs.</li>
+                    </ul>
+
+                    <h3>1.2. Data You Provide</h3>
+                    <ul>
+                        <li>QR codes and barcodes you scan are processed locally on your device and stored in your scan history. This data is not uploaded to our servers.</li>
+                        <li>If you contact us, your email address will only be used to respond to you.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="policy-section">
+            <details>
+                <summary>
+                    2. Device Permissions
+                    <div class="summary-icon">▼</div>
+                </summary>
+                <div class="section-content">
+                    <p>The QR Scanner Pro application requests specific permissions to perform its functions. These permissions are only requested when necessary:</p>
+                    
+                    <ul>
+                        <li><strong>Camera:</strong> To scan QR codes and barcodes in real-time using your device's camera.</li>
+                        <li><strong>Storage / Photo Library:</strong> To scan QR codes from images saved in your gallery.</li>
+                        <li><strong>Internet:</strong> For displaying ads, analytics services, and application updates.</li>
+                        <li><strong>Vibration:</strong> To provide haptic feedback when a code is successfully scanned.</li>
+                    </ul>
+
+                    <em>You can disable these permissions at any time from your device settings, but this may cause some features of the application to not work.</em>
+                </div>
+            </details>
+        </div>
+
+        <div class="policy-section">
+            <details>
+                <summary>
+                    3. Third-Party Services
+                    <div class="summary-icon">▼</div>
+                </summary>
+                <div class="section-content">
+                    <p>We use reliable third-party service providers to offer our applications for free and to improve them. These providers have their own privacy policies:</p>
+                    
+                    <ul>
+                        <li><strong>Google AdMob:</strong> For displaying ads. May use device identifiers to serve you relevant ads.</li>
+                        <li><strong>Google Firebase:</strong> For collecting analytics data and crash reports (Crashlytics).</li>
+                        <li><strong>Google ML Kit:</strong> For barcode scanning functionality. All processing is done on-device.</li>
+                    </ul>
+
+                    <p><a href="https://policies.google.com/privacy" target="_blank">Review Google's Privacy Policy →</a></p>
+                </div>
+            </details>
+        </div>
+
+        <div class="policy-section">
+            <details>
+                <summary>
+                    4. Data Security
+                    <div class="summary-icon">▼</div>
+                </summary>
+                <div class="section-content">
+                    <p>We take industry-standard security measures to protect your data. All QR codes and barcodes you scan with QR Scanner Pro are processed and stored locally on your device.</p>
+                    
+                    <p>We <strong>never sell</strong> your personal data (if any) to third parties.</p>
+
+                    <em>However, please note that no method of transmission over the internet or electronic storage is 100% secure.</em>
+                </div>
+            </details>
+        </div>
+
+        <div class="policy-section">
+            <details>
+                <summary>
+                    5. Children's Privacy
+                    <div class="summary-icon">▼</div>
+                </summary>
+                <div class="section-content">
+                    <p>Our applications are intended for a general audience. We do not knowingly collect personal data from children under 13. If you are a parent and believe your child has provided us with data, please contact us; we will delete the data immediately.</p>
+                </div>
+            </details>
+        </div>
+
+        <div class="policy-section">
+            <details>
+                <summary>
+                    6. Your Legal Rights (GDPR & CCPA)
+                    <div class="summary-icon">▼</div>
+                </summary>
+                <div class="section-content">
+                    <p>Depending on your region (Europe/GDPR or California/CCPA), you have the following rights over your data:</p>
+                    
+                    <ul>
+                        <li>Learn what data is being held.</li>
+                        <li>Request deletion or correction of data.</li>
+                        <li>Object to data processing.</li>
+                        <li>Disable ad personalization from device settings (Settings > Google > Ads).</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+
+        <div class="policy-section">
+            <details>
+                <summary>
+                    7. Data Retention and Deletion
+                    <div class="summary-icon">▼</div>
+                </summary>
+                <div class="section-content">
+                    <p>All scan history and data within the QR Scanner Pro application are stored locally on your device. You can delete this data at any time from within the application by clearing your scan history.</p>
+                    
+                    <p>When you uninstall the application, all application data is also deleted from your device.</p>
+                </div>
+            </details>
+        </div>
+
+        <div class="contact-box">
+            <h3>Have Questions?</h3>
+            <p>For any questions about our privacy policy or applications, feel free to contact us.</p>
+            <a href="mailto:support@bulkarapp.com" class="contact-btn">support@bulkarapp.com</a>
+        </div>
+
+        <footer>
+            <p>&copy; <span id="year"></span> <span class="footer-brand">Bulkar Tech</span>. All rights reserved.</p>
+            <p>QR Scanner Pro</p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Open first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstDetails = document.querySelector('details');
+            if (firstDetails) {
+                firstDetails.setAttribute('open', '');
+            }
+        });
+    </script>
+</body>
+</html>
